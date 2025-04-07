@@ -15,7 +15,6 @@ class TradeSummary:
         self.amount: float = amount
         self.tradeType: TradeType = tradeType
 
-
     def fromDictionary(dictionary: dict, tradeType: TradeType = TradeType.buy) -> TradeSummary:
         return TradeSummary(dictionary["pricePerUnit"], dictionary["amount"], tradeType)
 
