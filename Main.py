@@ -20,7 +20,7 @@ class TradeSummary:
         return TradeSummary(dictionary["pricePerUnit"], dictionary["amount"], tradeType)
 
 class BazaarItem:
-    def __init__(self, productID: str, data: dict = None):
+    def __init__(self: BazaarItem, productID: str, data: dict = None):
         self.productID: str = productID
         if data == None:
             data = getBazaarData()
@@ -34,31 +34,31 @@ class BazaarItem:
             tradeSummary: TradeSummary = TradeSummary.fromDictionary(sellSummary, TradeType.sell)
             self.sellSummary.append(tradeSummary)
     
-    def getInstantSellVolume(self) -> int:
+    def getInstantSellVolume(self: BazaarItem) -> int:
         instantSellVolume: int = 0
         for sellSummary in self.sellSummary:
             instantSellVolume += sellSummary.amount
         return instantSellVolume
 
 class Item(BazaarItem):
-    def __init__(self, productID: str, data: dict, npcSell: float):
+    def __init__(self: Item, productID: str, data: dict, npcSell: float):
         super().__init__(productID, data)
         self.npcSell: float = npcSell
     
-    def estimateProfit(self, relative: bool = True) -> float:
+    def estimateProfit(self: Item, relative: bool = True) -> float:
         buyOrderPrice: float = self.sellSummary[0].price + 0.1
         absoluteProfit: float = self.npcSell - buyOrderPrice
         if relative:
             absoluteProfit /= buyOrderPrice
         return absoluteProfit
     
-    def calculateTotalInstantSellItems(self: Item):
+    def calculateTotalInstantSellItems(self: Item) -> int:
         totalInstantSellItems: int = 0
         for buyOrder in self.sellSummary:
             totalInstantSellItems += buyOrder.amount
         return totalInstantSellItems
     
-    def calculateScore(self, oldItem: Union[Item, Snapshot]) -> float:
+    def calculateScore(self: Item, oldItem: Union[Item, Snapshot]) -> float:
         if type(oldItem) == Snapshot:
             for item in oldItem.items:
                 if item.productID == self.productID:
