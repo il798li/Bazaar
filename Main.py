@@ -45,7 +45,7 @@ class Item(BazaarItem):
         super().__init__(productID, data)
         self.npcSell: float = npcSell
     
-    def estimateProfit(self: Item, relative: bool = True) -> float:
+    def estimateProfit(self: Item, relative: bool = False) -> float:
         buyOrderPrice: float = self.sellSummary[0].price + 0.1
         absoluteProfit: float = self.npcSell - buyOrderPrice
         if relative:
