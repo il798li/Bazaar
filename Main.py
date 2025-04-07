@@ -40,9 +40,10 @@ class BazaarItem:
         return instantSellVolume
 
 class Item(BazaarItem):
-    def __init__(self: Item, productID: str, data: dict, npcSell: float):
+    def __init__(self: Item, productID: str, data: dict, npcSell: float, display: str):
         super().__init__(productID, data)
         self.npcSell: float = npcSell
+        self.display: str = display
     
     def estimateProfit(self: Item, relative: bool = False) -> float:
         buyOrderPrice: float = self.sellSummary[0].price + 0.1
@@ -69,24 +70,24 @@ class Item(BazaarItem):
         return score
     
     def __str__(self: Item) -> str:
-        return self.productID
+        return self.display
 
 class Snapshot:
     def __init__(self: Snapshot):
         self.timestamp: float = datetime.now().timestamp()
         data: dict = getBazaarData()
         self.items: list[Item] = [
-            Item("ENCHANTED_HAY_BALE", data, 153_600),
-            Item("MUTANT_NETHER_STALK", data, 102_400),
-            Item("BOX_OF_SEEDS", data, 76_800),
-            Item("ENCHANTED_BAKED_POTATO", data, 76_800),
-            Item("POLISHED_PUMPKIN", data, 256_000),
-            Item("ENCHANTED_MELON_BLOCK", data, 51_200), # red is 2
-            Item("ENCHANTED_HUGE_MUSHROOM_1", data, 51_200),
-            Item("ENCHANTED_HUGE_MUSHROOM_2", data, 51_200),
-            Item("ENCHANTED_CACTUS", data, 102_400),
-            Item("ENCHANTED_GRILLED_PORK", data, 128_000),
-            Item("ENCHANTED_COOKED_MUTTON", data, 128_000)
+            Item("ENCHANTED_HAY_BALE", data, 153_600, "Enchanted Hay Bale"),
+            Item("MUTANT_NETHER_STALK", data, 102_400, "Mutant Nether Wart"),
+            Item("BOX_OF_SEEDS", data, 76_800, "Box of Seeds"),
+            Item("ENCHANTED_BAKED_POTATO", data, 76_800, "Enchanted Baked Potato"),
+            Item("POLISHED_PUMPKIN", data, 256_000, "Polished Pumpkin"),
+            Item("ENCHANTED_MELON_BLOCK", data, 51_200, "Enchanted Melon Block"),
+            Item("ENCHANTED_HUGE_MUSHROOM_1", data, 51_200, "Enchanted Brown Mushroom Block"),
+            Item("ENCHANTED_HUGE_MUSHROOM_2", data, 51_200, "Enchanted Red Mushroom Block"),
+            Item("ENCHANTED_CACTUS", data, 102_400, "Enchanted Cactus"),
+            Item("ENCHANTED_GRILLED_PORK", data, 128_000, "Enchanted Grilled Pork"),
+            Item("ENCHANTED_COOKED_MUTTON", data, 128_000, "Enchanted Cooked Mutton")
         ]
     
     def findBestScore(self: Snapshot, oldSnapshot: Snapshot) -> Item:
