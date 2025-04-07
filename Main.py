@@ -109,8 +109,6 @@ class Comparison:
         if bestItem != None:
             score: float = bestItem.calculateScore(self.snapshots[0])
             print(f"Item: {bestItem} | Score: {score}")
-        else:
-            print("No best scores")
         self.nextSnapshot()
     
     def nextSnapshot(self: Comparison) -> None:
