@@ -118,5 +118,7 @@ class Comparison:
 comparison: Comparison = Comparison()
 
 while True:
-    comparison.compare()
-    sleep(10)
+    try:
+        comparison.compare()
+    except Exception:
+        pass
