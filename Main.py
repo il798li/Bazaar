@@ -104,7 +104,7 @@ class Comparison:
     def __init__(self: Comparison):
         self.snapshots: list[Snapshot] = [Snapshot(), Snapshot()]
     
-    def compare(self: Comparison):
+    def compare(self: Comparison) -> None:
         bestItem: Item = self.snapshots[1].findBestScore(self.snapshots[0])
         if bestItem != None:
             score: float = bestItem.calculateScore(self.snapshots[0])
